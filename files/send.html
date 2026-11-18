@@ -1,7 +1,7 @@
 <!doctype html><meta charset="utf-8"><title>send</title><body>sending…<script>
 const f=new URLSearchParams(location.search).get('f');
 fetch('carousel-'+f+'.pdf').then(r=>r.arrayBuffer()).then(b=>{
- if(window.opener){window.opener.postMessage({sbpPdf:f,buf:b},'https://www.linkedin.com',[b]);document.body.textContent='sent '+b.byteLength;}
+ const tgt=window.opener||(window.parent!==window?window.parent:null);if(tgt){tgt.postMessage({sbpPdf:f,buf:b},'https://www.linkedin.com',[b]);document.body.textContent='sent '+b.byteLength;}
  else document.body.textContent='no opener';
 });
 </script>
